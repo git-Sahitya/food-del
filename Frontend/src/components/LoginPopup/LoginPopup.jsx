@@ -3,7 +3,7 @@ import './LoginPopup.css'
 import {assets} from '../../assets/assets'
 
 const LoginPopup = ({setShowLogin}) => {
-    const [currState, setCurrState] = useState("Login")
+    const [currState, setCurrState] = useState("SignUp")
   return (
     <div className='login-popup'>
         <form  className='login-popup-container'>
@@ -16,7 +16,7 @@ const LoginPopup = ({setShowLogin}) => {
                 <input type="email" placeholder='Your email' required />
                 <input type="password" placeholder='Password' required />
             </div>
-            <button>{currState === "Sign Up" ? "Create account" : "Login"}</button>
+            <button>{currState === "SignUp" ? "Create account" : "Login"}</button>
             <div className="login-popup-condition">
                 <input type="checkbox" required />
                 <p>By continuing , I agree to the terms of use & privacy and policy.</p>
