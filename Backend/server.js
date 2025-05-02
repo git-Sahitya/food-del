@@ -1,10 +1,14 @@
 import express from 'express'
+import dotenv from 'dotenv'
+dotenv.config();
 import cors from 'cors'
 import connectDB from './config/db.js'
-import dotenv from 'dotenv'
+
+
 import foodRouter from './routes/food.router.js'
 import userRouter from './routes/user.router.js'
 import cartRouter from './routes/cart.router.js'
+import orderRouter from './routes/order.router.js'
 
 
 //app config 
@@ -18,9 +22,6 @@ import cartRouter from './routes/cart.router.js'
  app.use(cors())  
   
  
- dotenv.config({
-   path: "./.env",
- });
 
  //db connection
 connectDB()
@@ -30,6 +31,7 @@ app.use('/api/food', foodRouter)
 app.use('/images' ,express.static('uploads') )
 app.use('/api/user' , userRouter)
 app.use('/api/cart' , cartRouter)
+app.use('/api/order' , orderRouter)
 
 
 app.get('/',(req,res)=>{
