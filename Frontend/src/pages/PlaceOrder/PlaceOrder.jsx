@@ -2,12 +2,9 @@ import React, { useContext, useState } from "react";
 import "./PlaceOrder.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import {  toast } from 'react-toastify';
-
 
 const PlaceOrder = () => {
-  const navigate = useNavigate();
+  
   const { getTotalCartAmount, token, food_list, cartItems, url } =
     useContext(StoreContext);
   const [data, setData] = useState({
@@ -46,15 +43,12 @@ const PlaceOrder = () => {
     let response = await axios.post(`${url}/api/order/place`, orderData,{headers : {token}})
     
     if (response.data.success) {
-      const {session_url} = response.data
-      navigate('/')
-      toast.success(" Order placed successfully")
-
+      const { session_url } = response.data;
+      window.location.href = session_url;
       
     }else{
-        navigate('/') 
-      toast.success("Order placed successfully")
-
+      alert("Error")
+      
     }
   };
 

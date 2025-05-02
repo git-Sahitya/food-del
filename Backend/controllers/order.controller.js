@@ -5,8 +5,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const razorpay = new Razorpay({
-  key_id: "dgbdhgdhdh",
-  key_secret: "hdhdhdhhdhd",
+  key_id: process.env.RAZOPAY_KEY_ID,
+  key_secret: process.env.RAZOPAY_KEY_SECRET,
 });
 
 const placeOrder = async (req, res) => {
@@ -50,4 +50,21 @@ const placeOrder = async (req, res) => {
   }
 };
 
-export { placeOrder };
+const verifyOrder = async (req,res) => {
+  const {orderId, success} = req.body
+  try {
+    if (success == "false") {
+      await orderModel.findByIdAndUpdate(orderId,{payment: true})
+      res.json({success: true, message:"Paid"})
+    }else{
+      await orderModel.findByIdAndDelete(orderId)
+      res.json({success:false,message:"Not paid yet!!"})
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({success:false,message:"Error"})
+    
+  }
+}
+
+export { placeOrder , verifyOrder };
